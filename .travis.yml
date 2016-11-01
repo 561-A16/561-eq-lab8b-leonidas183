@@ -18,3 +18,11 @@ before_install:
 
 script:
     - docker run -it --rm -v $PWD/publish:/root/publish -v $PWD/packages:/root/.nuget/packages webapp:test
+
+after_success:
+    - docker build -t webapp:release -f ./dockerfile/release .
+    - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker tag webapp:release "$DOCKER_ID"/webapp:latest;    
+    docker login -u="$DOCKER_ID" -p="$DOCKER_PWD";
+    docker push "$DOCKER_ID"/webapp:latest;
+    fi
