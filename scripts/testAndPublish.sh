@@ -13,3 +13,4 @@ dotnet test
 cd ../webapp
 dotnet publish --output ~/publish
 
+
