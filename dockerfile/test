@@ -1,0 +1,12 @@
+FROM ymazieres/dotnet:compile
+
+COPY src /src
+COPY /scripts/testAndPublish.sh /src/testAndPublish.sh
+
+RUN chmod +x /src/testAndPublish.sh
+
+ENTRYPOINT ["sh","./testAndPublish.sh"]
+
+ENV ASPNETCORE_URLS http://+:5000
+
+WORKDIR /src

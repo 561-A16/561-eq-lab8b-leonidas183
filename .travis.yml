@@ -1,0 +1,20 @@
+sudo: required
+
+language: csharp
+
+branches:
+    only:
+        - master
+
+cache:
+    directories:
+        - ~/.nuget/packages
+
+services:
+    - docker
+
+before_install:
+    - docker build -t webapp:test -f ./dockerfile/test .
+
+script:
+    - docker run -it --rm -v $PWD/publish:/root/publish -v $PWD/packages:/root/.nuget/packages webapp:test

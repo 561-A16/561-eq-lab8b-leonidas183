@@ -1,0 +1,9 @@
+FROM microsoft/dotnet:latest
+
+COPY publish /publish
+
+ENTRYPOINT ["dotnet","webapp.dll"]
+
+ENV ASPNETCORE_URLS http://+:5000
+
+WORKDIR /publish
