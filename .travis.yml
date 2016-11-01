@@ -21,6 +21,6 @@ script:
 
 after_success:
     - sudo docker build -t webapp:release -f ./dockerfile/release .
-    - docker tag webapp:release leonidas183/webapp:latest;   
+    - docker tag webapp:release leonidas183/webapp:latest   
     - docker login -u="$DOCKER_ID" -p="$DOCKER_PWD"
     - docker push leonidas183/webapp:latest
