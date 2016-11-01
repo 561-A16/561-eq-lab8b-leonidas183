@@ -19,8 +19,8 @@ before_install:
 script:
     - docker run -it --rm -v $PWD/publish:/root/publish -v $PWD/packages:/root/.nuget/packages webapp:test
 
-after_success:
-    - sudo docker build -t webapp:release -f ./dockerfile/release .
-    - docker tag webapp:release leonidas183/webapp:latest   
-    - docker login -u="$DOCKER_ID" -p="$DOCKER_PWD"
-    - docker push leonidas183/webapp:latest 
+#after_success:
+#   - sudo docker build -t webapp:release -f ./dockerfile/release .
+#    - docker tag webapp:release leonidas183/webapp:latest   
+#    - docker login -u="$DOCKER_ID" -p="$DOCKER_PWD"
+#    - docker push leonidas183/webapp:latest 
