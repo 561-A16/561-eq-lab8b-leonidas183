@@ -27,7 +27,7 @@ script:
     - docker login -u="$DOCKER_ID" -p="$DOCKER_PWD"
     - docker push leonidas183/webapp:release 
     - scp -o StrictHostKeyChecking=no ./scripts/getReleaseFromDockerHubAndStart.sh u1441286@159.203.33.172:~/
-    - scp -r -o StrictHostKeyChecking=no ~/publish u1441286@159.203.33.172:~/publish 
+    - scp -r -o StrictHostKeyChecking=no ./publish u1441286@159.203.33.172:~/publish 
     - ssh u1441286@159.203.33.172 "chmod +x getReleaseFromDockerHubAndStart.sh"
     - ssh u1441286@159.203.33.172 "sh getReleaseFromDockerHubAndStart.sh"
 
