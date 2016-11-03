@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -ev
 #Web app source code
 cd webapp
 dotnet restore

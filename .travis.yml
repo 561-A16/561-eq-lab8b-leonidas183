@@ -14,11 +14,20 @@ services:
     - docker
 
 before_install:
-    - docker build -t webapp:test -f ./dockerfile/test .
+    - openssl aes-256-cbc -K $encrypted_a6e4154747b9_key -iv $encrypted_a6e4154747b9_iv -in ./keys/analyseDO.enc -out ~/.ssh/analyseDO -d -pass pass:$KEY_PWD
+    - eval "$(ssh-agent -s)"
+    - chmod 600 ~/.ssh/analyseDO
+    - ssh-add ~/.ssh/analyseDO
 
 script:
+    - docker build -t webapp:test -f ./dockerfile/test .
     - docker run -it --rm -v $PWD/publish:/root/publish -v $PWD/packages:/root/.nuget/packages webapp:test
     - sudo docker build -t webapp:release -f ./dockerfile/release .
     - docker tag webapp:release leonidas183/webapp:latest   
     - docker login -u="$DOCKER_ID" -p="$DOCKER_PWD"
     - docker push leonidas183/webapp:latest 
+    - scp -o StrictHostKeyChecking=no ./scripts/getReleaseFromDockerHubAndStart.sh u1441286@159.203.33.172:~/
+    - scp -r -o StrictHostKeyChecking=no ~/publish u1441286@159.203.33.172:~/publish 
+    - ssh u1441286@159.203.33.172 "chmod +x getReleaseFromDockerHubAndStart.sh"
+    - ssh u1441286@159.203.33.172 "sh getReleaseFromDockerHubAndStart.sh"
+
