@@ -14,7 +14,7 @@ services:
     - docker
 
 before_install:
-    - openssl aes-256-cbc -K $encrypted_a6e4154747b9_key -iv $encrypted_a6e4154747b9_iv -in ./keys/analyseDO.enc -out ~/.ssh/analyseDO -d #-pass pass:$KEY_PWD
+    - openssl aes-256-cbc -K $encrypted_a6e4154747b9_key -iv $encrypted_a6e4154747b9_iv -in ./key/analyseDO.enc -out ~/.ssh/analyseDO -d #-pass pass:$KEY_PWD
     - eval "$(ssh-agent -s)"
     - chmod 600 ~/.ssh/analyseDO
     - ssh-add ~/.ssh/analyseDO
