@@ -23,9 +23,9 @@ script:
     - docker build -t webapp:test -f ./dockerfile/test .
     - docker run -it --rm -v $PWD/publish:/root/publish -v $PWD/packages:/root/.nuget/packages webapp:test
     - sudo docker build -t webapp:release -f ./dockerfile/release .
-    - docker tag webapp:release leonidas183/webapp:latest   
+    - docker tag webapp:release leonidas183/webapp:release   
     - docker login -u="$DOCKER_ID" -p="$DOCKER_PWD"
-    - docker push leonidas183/webapp:latest 
+    - docker push leonidas183/webapp:release 
     - scp -o StrictHostKeyChecking=no ./scripts/getReleaseFromDockerHubAndStart.sh u1441286@159.203.33.172:~/
     - scp -r -o StrictHostKeyChecking=no ~/publish u1441286@159.203.33.172:~/publish 
     - ssh u1441286@159.203.33.172 "chmod +x getReleaseFromDockerHubAndStart.sh"
